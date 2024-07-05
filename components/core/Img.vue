@@ -3,8 +3,8 @@
 		:src="src"
 		:width="width"
 		:height="height"
-		:class="className"
-		:style="style"
+		:class="imgClass"
+		:style="imgStyle"
 		:alt="alt"
 		loading="lazy" />
 </template>
@@ -25,11 +25,11 @@
 				type: [String, Number],
 				default: null,
 			},
-			className: {
+			imgClass: {
 				type: String,
 				default: "",
 			},
-			style: {
+			imgStyle: {
 				type: String,
 				default: "",
 			},
