@@ -5,7 +5,14 @@
 ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 */
 module.exports = {
-  theme: {},
-  variants: {},
-  plugins: []
+	content: [
+		"./components/**/*.{vue,js}",
+		"./layouts/**/*.{vue,js}",
+		"./pages/**/*.{vue,js}",
+		"./plugins/**/*.{js,ts}",
+		"./nuxt.config.{js,ts}",
+	],
+	theme: {},
+	variants: {},
+	plugins: [],
 }
