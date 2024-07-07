@@ -2,15 +2,18 @@
 	<div>
 		<Topnav />
 		<nuxt />
+		<Bottomnav />
 	</div>
 </template>
 
 <script>
 	import Topnav from "@/layouts/Topnav.vue"
+	import Bottomnav from "@/layouts/Bottomnav.vue"
 
 	export default {
 		components: {
 			Topnav,
+			Bottomnav,
 		},
 	}
 </script>
