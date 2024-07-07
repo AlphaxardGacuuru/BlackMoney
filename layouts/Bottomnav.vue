@@ -4,16 +4,20 @@
 		style="background-color: #232323">
 		<ul class="flex justify-around">
 			<li class="flex-1 text-center py-2">
-				<nuxt-link to="#">
+				<nuxt-link to="/">
 					<div
-						class="flex flex-col justify-center items-center mx-auto w-full text-white">
+						class="flex flex-col justify-center items-center mx-auto w-full"
+						:class="{
+							'text-custom-green': isRootRoute,
+							'text-white': !isRootRoute,
+						}">
 						<span class="text-2xl p-1"><WalletSVG /></span>
 						<span class="text-sm">Accounts</span>
 					</div>
 				</nuxt-link>
 			</li>
 			<li class="flex-1 text-center py-2">
-				<nuxt-link to="#">
+				<nuxt-link to="/categories">
 					<div
 						class="flex flex-col justify-center items-center mx-auto w-full text-white">
 						<span class="text-2xl p-1"><CategorySVG /></span>
@@ -22,7 +26,7 @@
 				</nuxt-link>
 			</li>
 			<li class="flex-1 text-center py-2">
-				<nuxt-link to="#">
+				<nuxt-link to="/transactions">
 					<div
 						class="flex flex-col justify-center items-center mx-auto w-full text-white">
 						<span class="text-2xl p-1"><TransactionSVG /></span>
@@ -31,7 +35,7 @@
 				</nuxt-link>
 			</li>
 			<li class="flex-1 text-center py-2">
-				<nuxt-link to="#">
+				<nuxt-link to="/overview">
 					<div
 						class="flex flex-col justify-center items-center mx-auto w-full text-white">
 						<span class="text-2xl p-1"><OverviewSVG /></span>
@@ -54,6 +58,11 @@
 		computed: {
 			isRootRoute() {
 				return this.$route.path === "/"
+			},
+		},
+		watch: {
+			"$route.path"(newPath) {
+				this.isRootRoute = newPath === "/"
 			},
 		},
 	}

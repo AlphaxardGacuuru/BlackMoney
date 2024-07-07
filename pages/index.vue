@@ -2,8 +2,14 @@
 	<div class="row">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4">
-			<div class="d-flex"></div>
-			<div class="fixed bottom-4 right-4">
+			<div class="flex justify-between p-2">
+				<h1>Accounts</h1>
+				<h1>
+					<small>KES</small>
+					0
+				</h1>
+			</div>
+			<div class="fixed bottom-4 right-0 m-2">
 				<nuxt-link
 					to="/accounts/create"
 					class="block text-white p-4 rounded-full shadow-lg"
