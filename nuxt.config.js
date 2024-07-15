@@ -62,7 +62,12 @@ module.exports = {
 	 ** Axios module configuration
 	 ** See https://axios.nuxtjs.org/options
 	 */
-	axios: {},
+	axios: {
+		baseURL: process.env.BASE_URL, // Base URL for the API
+    	browserBaseURL: process.env.BASE_URL, // Base URL for the browser (client-side)
+    	credentials: false, // Include credentials in requests
+    	proxyHeaders: true, // Proxy headers for SSR
+	},
 	/*
 	 ** Build configuration
 	 */
@@ -72,4 +77,5 @@ module.exports = {
 		 */
 		extend(config, ctx) {},
 	},
+	telemetry: false,
 }

@@ -3,3 +3,7 @@
 @import 'tailwindcss/components';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
+
+.form {
+	@apply block w-full px-3 py-2 h-16 border-b border-gray-400 rounded-none shadow-sm bg-transparent
+}

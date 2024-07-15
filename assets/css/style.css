@@ -20426,6 +20426,23 @@ video {
   animation: bounce 1s infinite;
 }
 
+.form {
+  display: block;
+  width: 100%;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  height: 4rem;
+  border-bottom-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  border-radius: 0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  background-color: transparent
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -99669,7 +99686,6 @@ video {
     animation: bounce 1s infinite;
   }
 }
-
 
 /* Custom */
 

@@ -8,8 +8,8 @@
 					<div
 						class="flex flex-col justify-center items-center mx-auto w-full"
 						:class="{
-							'text-custom-green': isRootRoute,
-							'text-white': !isRootRoute,
+							'text-custom-green': active('/') || active('/accounts'),
+							'text-white': !active('/') && !active('/accounts'),
 						}">
 						<span class="text-2xl p-1"><WalletSVG /></span>
 						<span class="text-sm">Accounts</span>
@@ -55,14 +55,12 @@
 
 	export default {
 		components: { WalletSVG, CategorySVG, TransactionSVG, OverviewSVG },
-		computed: {
-			isRootRoute() {
-				return this.$route.path === "/"
+		methods: {
+			active(route) {
+				return this.$route.path.match(route)
 			},
-		},
-		watch: {
-			"$route.path"(newPath) {
-				this.isRootRoute = newPath === "/"
+			activeStrict(route) {
+				return this.$route.path === route
 			},
 		},
 	}
