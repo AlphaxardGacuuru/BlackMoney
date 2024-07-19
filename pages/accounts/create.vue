@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Btn from '~/components/core/Btn.vue';
+import Btn from '~/components/Core/Btn';
 import Axios from 'axios'
 
 	export default {

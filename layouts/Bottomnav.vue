@@ -8,8 +8,8 @@
 					<div
 						class="flex flex-col justify-center items-center mx-auto w-full"
 						:class="{
-							'text-custom-green': active('/') || active('/accounts'),
-							'text-white': !active('/') && !active('/accounts'),
+							'active-green': activeStrict('/') || active('/accounts'),
+							'text-white': !activeStrict('/') && !active('/accounts'),
 						}">
 						<span class="text-2xl p-1"><WalletSVG /></span>
 						<span class="text-sm">Accounts</span>

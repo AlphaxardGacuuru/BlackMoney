@@ -9,8 +9,6 @@ const app = express()
 const config = require("../nuxt.config.js")
 config.dev = process.env.NODE_ENV !== "production"
 
-const PORT = process.env.PORT || 3000
-
 async function start() {
 	// Init Nuxt.js
 	const nuxt = new Nuxt(config)
@@ -24,10 +22,8 @@ async function start() {
 		await builder.build()
 	}
 
-	// Define the API routes
-	app.get("/api/accounts", (req, res) => {
-		res.send("You hit accounts")
-	})
+	// Use the API router
+	app.use("/api", require('./Routes/Routes'))
 
 	// Give nuxt middleware to express
 	app.use(nuxt.render)

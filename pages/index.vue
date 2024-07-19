@@ -11,11 +11,20 @@
 			</div>
 			<div class="fixed bottom-0 right-0 z-50 mb-20 mr-2">
 				<nuxt-link
+					id="chatFloatBtn"
 					to="/accounts/create"
-					class="block text-white p-4 rounded-full shadow-lg"
-					style="background-color: #232323">
+					class="block text-white p-1">
 					<PlusSVG />
 				</nuxt-link>
+			</div>
+
+			<div>
+				<h1>Counter: {{ counter }}</h1>
+				<button class="text-white" @click="incrementCounter">Increment</button>
+				<div v-if="user">
+					<p class="text-white">Logged in as: {{ user.name }}</p>
+				</div>
+				<button class="text-white" @click="loginUser">Login</button>
 			</div>
 		</div>
 		<div class="col-sm-4"></div>
@@ -32,5 +41,22 @@
 			}
 		},
 		components: { PlusSVG },
+		computed: {
+			counter() {
+				return this.$store.getters.counter
+			},
+			user() {
+				return this.$store.getters.user
+			},
+		},
+		methods: {
+			incrementCounter() {
+				this.$store.dispatch("increment")
+			},
+			loginUser() {
+				const user = { name: "John Doe" }
+				this.$store.dispatch("setUser", user)
+			},
+		},
 	}
 </script>

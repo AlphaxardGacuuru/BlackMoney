@@ -12,7 +12,7 @@
 					<div class="text-xs text-center">KES 0</div>
 				</div>
 				<div class="text-white mt-1">
-					<span class="text-2xl p-1"><PersonSVG /></span>
+					<UserDropdown />
 				</div>
 			</div>
 		</div>
@@ -20,13 +20,15 @@
 </template>
 
 <script>
-	import Img from "@/components/core/Img"
-	import Btn from "@/components/core/Btn"
+	import Img from "@/components/Core/Img"
+	import Btn from "@/components/Core/Btn"
+	import UserDropdown from "@/components/core/UserDropdown"
+
 	import PlusSVG from "@/assets/svgs/PlusSVG"
 	import PersonSVG from "@/assets/svgs/PersonSVG"
 
 	export default {
-		components: { Img, Btn, PlusSVG, PersonSVG },
+		components: { Img, Btn, UserDropdown, PlusSVG, PersonSVG },
 		data() {
 			return {
 				plusSVG: PlusSVG,

@@ -29,7 +29,7 @@ module.exports = {
 	/*
 	 ** Global CSS
 	 */
-	css: ["~/assets/css/style.css"],
+	css: ["~/assets/css/style.css", "~/assets/css/custom.css"],
 	postcss: {
 		plugins: {
 			tailwindcss: {},
@@ -57,6 +57,7 @@ module.exports = {
 		// Doc: https://github.com/nuxt-community/dotenv-module
 		"@nuxtjs/dotenv",
 		"@nuxtjs/tailwindcss",
+		"@nuxtjs/composition-api/module"
 	],
 	/*
 	 ** Axios module configuration

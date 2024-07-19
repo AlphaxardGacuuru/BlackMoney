@@ -1,6 +1,6 @@
 <template>
 	<button
-		class="border border-black uppercase text-sm bg-transparent py-2 px-4 hover:bg-black hover:text-white"
+		class="mysonar-btn"
 		@click="onClick()"
 		:disabled="loading">
 		<component
