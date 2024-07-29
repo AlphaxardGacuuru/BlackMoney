@@ -8,7 +8,7 @@
 				<input
 					type="text"
 					placeholder="Card, MPESA"
-					class="form focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-gray-900 mb-2" />
+					class="form focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-gray-100 text-white mb-2" />
 
 					<div class="flex flex-row-reverse">
 						<Btn text="create" />

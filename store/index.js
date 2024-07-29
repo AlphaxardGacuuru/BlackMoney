@@ -1,32 +1,45 @@
-// state
+/*
+ * State
+ */
 export const state = () => ({
 	counter: 0,
-	user: null,
-  })
-  
-  // mutations
-  export const mutations = {
+	auth: {
+		name: "Guest",
+		email: "guest@gmail.com",
+		avatar: "/storage/avatars/male-avatar.png",
+		accountType: "normal",
+	},
+})
+
+/*
+ * Mutations
+ */
+export const mutations = {
 	increment(state) {
-	  state.counter++
+		state.counter++
 	},
 	setUser(state, user) {
-	  state.user = user
+		state.user = user
 	},
-  }
-  
-  // actions
-  export const actions = {
+}
+
+/*
+ * Actions
+ */
+export const actions = {
 	increment({ commit }) {
-	  commit('increment')
+		commit("increment")
 	},
 	setUser({ commit }, user) {
-	  commit('setUser', user)
+		commit("setUser", user)
 	},
-  }
-  
-  // getters
-  export const getters = {
+}
+
+/*
+ * Getters
+ */
+export const getters = {
 	counter: (state) => state.counter,
 	user: (state) => state.user,
-  }
-  
+	auth: (state) => state.auth,
+}

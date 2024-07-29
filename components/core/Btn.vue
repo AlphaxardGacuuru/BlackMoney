@@ -1,7 +1,7 @@
 <template>
 	<button
-		class="mysonar-btn"
-		@click="onClick()"
+		class="mysonar-btn white-btn"
+		@click="$emit('btnClick')"
 		:disabled="loading">
 		<component
 			v-if="icon"
@@ -25,11 +25,6 @@
 			loading: {
 				Boolean,
 				default: false,
-			},
-		},
-		methods: {
-			onClick() {
-				this.$emit("btn-click")
 			},
 		},
 	}

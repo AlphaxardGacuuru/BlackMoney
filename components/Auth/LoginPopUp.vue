@@ -1,11 +1,15 @@
 <script>
 	import { ref, computed } from "@nuxtjs/composition-api"
+	import {
+		useStore,
+		useRoute,
+		useRouter,
+		onMounted,
+	} from "@nuxtjs/composition-api"
 	import CryptoJS from "crypto-js"
 	import Axios from "axios"
-	
 	import Btn from "@/components/Core/Btn"
 	// import { GoogleLoginButton } from "react-social-login-buttons"
-	
 	import CloseSVG from "@/assets/svgs/CloseSVG"
 
 	export default {
@@ -13,27 +17,38 @@
 			Btn,
 			CloseSVG,
 		},
-		setup(props, { root }) {
+		setup() {
+			const store = useStore()
+			const route = useRoute()
+			const router = useRouter()
+
 			const email = ref("alphaxardgacuuru47@gmail.com")
 			const phoneLogin = ref(false)
 			const password = ref("alphaxardgacuuru47@gmail.com")
 			const loading = ref(false)
+			const isSecure = ref(false)
 
-			const isSecure = computed(() => window.location.href.match(/https/))
+			onMounted(() => {
+				if (process.client) {
+					isSecure.value = window.location.href.match(/https/)
+				}
+			})
 
 			const onSocial = (website) => {
-				window.location.href = `/login/${website}`
+				if (process.client) {
+					window.location.href = `/login/${website}`
+				}
 			}
 
 			const encryptedToken = (token) => {
-				const secretKey = "BlackPropertyAuthorizationToken"
+				const secretKey = "BlackMoneyAuthorizationToken"
 				return CryptoJS.AES.encrypt(token, secretKey).toString()
 			}
 
 			const fetchAuth = (token) => {
 				Axios.get("api/auth", { headers: { Authorization: `Bearer ${token}` } })
-					.then((res) => props.setAuth(res.data.data))
-					.catch((err) => props.getErrors(err))
+					.then((res) => store.commit("setAuth", res.data.data))
+					.catch((err) => store.commit("getErrors", err))
 			}
 
 			const onSubmit = () => {
@@ -47,30 +62,35 @@
 						remember: "checked",
 					})
 						.then((res) => {
-							props.setMessages([res.data.message])
+							store.commit("setMessages", [res.data.message])
 							fetchAuth(res.data.data)
 							loading.value = false
-							props.setLocalStorage(
-								"sanctumToken",
-								encryptedToken(res.data.data)
-							)
-							props.get("auth", props.setAuth, "auth", false)
+							store.commit("setLocalStorage", {
+								key: "sanctumToken",
+								value: encryptedToken(res.data.data),
+							})
+							store.dispatch("get", {
+								endpoint: "auth",
+								mutation: "setAuth",
+								loading: "auth",
+								withAuth: false,
+							})
 							setTimeout(() => window.location.reload(), 1000)
 						})
 						.catch((err) => {
 							loading.value = false
-							props.getErrors(err)
+							store.commit("getErrors", err)
 						})
 				})
 			}
 
-			const blur = computed(
-				() => props.auth.name === "Guest" && root.$route.path.match("/admin")
-			)
+			const blur = computed(() => {
+				return store.getters.auth?.name === "Guest"
+			})
 
 			const handleClose = () => {
-				props.setLogin(false)
-				root.$router.push("/admin/dashboard")
+				store.commit("setLogin", false)
+				router.push("/")
 			}
 
 			const togglePhoneLogin = () => {
@@ -99,14 +119,14 @@
 			class="background-blur"
 			:style="{ visibility: blur ? 'visible' : 'hidden' }"></div>
 		<div class="bottomMenu">
-			<div class="d-flex align-items-center justify-content-between">
+			<div class="flex items-center justify-between">
 				<!-- Logo Area -->
 				<div class="logo-area p-2">
 					<a href="#">Login</a>
 				</div>
 				<!-- Close Icon -->
 				<div
-					class="closeIcon float-end"
+					class="closeIcon float-right"
 					style="font-size: 1em"
 					@click="handleClose">
 					<CloseSVG />
@@ -121,7 +141,7 @@
 							<input
 								id="email"
 								type="text"
-								class="form-control"
+								class="form mycontact-form focus:outline-none text-white mb-2"
 								v-model="email"
 								required
 								autofocus />
@@ -134,18 +154,16 @@
 						<Btn
 							class="border-light mt-1 w-50"
 							text="back"
-							@click="togglePhoneLogin" />
+							@btnClick="togglePhoneLogin" />
 					</center>
 				</div>
 				<div v-else>
-					<!-- <GoogleLoginButton
-						class="rounded-0 mt-2"
-						@click="onSocial('google')" /> -->
+					<!-- <GoogleLoginButton class="rounded-0 mt-2" @click="onSocial('google')" /> -->
 					<Btn
 						v-if="!isSecure"
-						class="border-light mt-1 w-75"
+						class="mt-1 w-75"
 						text="login with email"
-						@click="togglePhoneLogin" />
+						@btnClick="togglePhoneLogin" />
 				</div>
 			</div>
 		</div>
