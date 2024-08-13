@@ -5,10 +5,10 @@ const asyncHandler = require("express-async-handler")
 const protect = asyncHandler(async (req, res, next) => {
 	let token
 
-	if (
-		req.headers.authorization &&
+	var hasBearerToken = req.headers.authorization && 
 		req.headers.authorization.startsWith("Bearer")
-	) {
+
+	if (hasBearerToken) {
 		try {
 			// Get Token from Header
 			token = req.headers.authorization.split(" ")[1]
@@ -16,7 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
 			// Verify Token
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-			// req.user = await User.findById(decoded.id).select("-password")
+			req.user = await User.findById(decoded.id).select("-password")
 
 			next()
 		} catch (error) {
@@ -31,7 +31,6 @@ const protect = asyncHandler(async (req, res, next) => {
 		throw new Error("Not Authorized, No token")
 	}
 })
-
 
 module.exports = {
 	protect,

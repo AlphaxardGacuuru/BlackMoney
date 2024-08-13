@@ -3,6 +3,10 @@ const colors = require("colors")
 const dotenv = require("dotenv").config()
 const consola = require("consola")
 const { Nuxt, Builder } = require("nuxt")
+const connectDB = require("./config/database")
+
+connectDB()
+
 const app = express()
 
 // Import and Set Nuxt.js options
@@ -22,6 +26,9 @@ async function start() {
 		await builder.build()
 	}
 
+	app.use(express.json())
+	app.use(express.urlencoded({ extended: false }))
+
 	// Use the API router
 	app.use("/api", require('./Routes/Routes'))
 
@@ -30,6 +37,7 @@ async function start() {
 
 	// Listen the server
 	app.listen(port, host)
+
 	consola.ready({
 		message: `Server listening on http://${host}:${port}`,
 		badge: true,
