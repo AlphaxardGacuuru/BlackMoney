@@ -18,18 +18,18 @@ const store = asyncHandler(async (req, res) => {
 
 	const userExists = await User.findOne({ email })
 
-	if (userExists) {
-		res.status(400)
+	// if (userExists) {
+		// res.status(400)
 
-		throw new Error("User already exists")
-	}
+		// throw new Error("User already exists")
+	// }
 
 	// Hash Password
 	const salt = await bcrypt.genSalt(10)
 	const hashedPassword = await bcrypt.hash(password, salt)
 
 	// Create User
-	const user = User.create({
+	const user = await User.create({
 		name,
 		email,
 		password: hashedPassword,
@@ -55,14 +55,18 @@ const store = asyncHandler(async (req, res) => {
 const login = asyncHandler(async (req, res) => {
 	const { email, password } = req.body
 
-	const user = await User.findOne({ email })
+	const user = await User.findOne({ email: email })
 
 	if (user && (await bcrypt.compare(password, user.password))) {
-		res.json({
-			_id: user.id,
-			name: user.name,
-			email: user.email,
-			token: generateToken(user._id),
+		res.status(200).json({
+			status: "Success",
+			message: "Logged In",
+			data: {
+				id: user._id,
+				name: user.name,
+				email: user.email,
+				token: generateToken(user._id),
+			},
 		})
 	} else {
 		res.status(400)
@@ -77,9 +81,14 @@ const auth = asyncHandler(async (req, res) => {
 	const { _id, name, email } = await User.findById(req.user.id)
 
 	res.status(200).json({
-		id: _id,
-		name: name,
-		email: email,
+		status: "Success",
+		message: "",
+		data: {
+			id: _id,
+			name: name,
+			email: email,
+			token: generateToken(_id),
+		},
 	})
 })
 

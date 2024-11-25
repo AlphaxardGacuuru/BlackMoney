@@ -12,7 +12,10 @@
 			style="color: inherit">
 			{{ text }}
 		</span>
-		<div v-if="loading"></div>
+		<div
+		v-if="loading"
+			id="sonar-load"
+			style="bottom: '0'"></div>
 	</button>
 </template>
 

@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config()
 const consola = require("consola")
 const { Nuxt, Builder } = require("nuxt")
 const connectDB = require("./config/database")
+const { ErrorHandler } = require("../middleware/ErrorMiddleware")
 
 connectDB()
 
@@ -31,6 +32,8 @@ async function start() {
 
 	// Use the API router
 	app.use("/api", require('./Routes/Routes'))
+
+	app.use(ErrorHandler)
 
 	// Give nuxt middleware to express
 	app.use(nuxt.render)
